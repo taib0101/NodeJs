@@ -1,4 +1,5 @@
 // this is also asynchronous
+// Provides a higher-level abstraction for reading input line-by-line.
 let readline = require("readline");
 let rl = readline.createInterface(process.stdin,process.stdout);
 
