@@ -6,7 +6,9 @@
 // second one will not work
 
 
-
+// it use when directly works stdin stream
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
 
 
 // example 1

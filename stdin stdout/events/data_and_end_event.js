@@ -3,6 +3,10 @@
 // this is also non blocking asynchronous
 // press ctrl + d to exit 
 
+// it use when directly works stdin stream
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
 process.stdout.write("execution 1\n");
 let arr = [];
 process.stdin.on("data" , (chunk) => {
