@@ -1,7 +1,7 @@
 // this is asynchronous ,it Works at a lower level, directly with the stdin stream.
 // this event actually work for EOF(end of file) input
 // this is also non blocking asynchronous
-// pres ctrl + d to exit 
+// press ctrl + d to exit 
 
 process.stdout.write("execution 1\n");
 let arr = [];
