@@ -4,6 +4,7 @@
 // await only work for async.
 // if we don't use await it doesn't execute synchronous function in asynchronous
 // function.
+// it is better then promise.then().catch() .
 
 let order = true;
 let functionn1 = () => {
