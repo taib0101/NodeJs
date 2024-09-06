@@ -2,12 +2,11 @@
 let order = true;
 
 let promise1 = new Promise((resolve,reject) => {
-    setTimeout(() => {
-        if(order)
-            resolve("resolved promise1");
-        else
-            reject("rejected promise1");
-    } , 1000);
+    if(order)
+        resolve("resolved promise1");
+    else
+        reject("rejected promise1");
+    
 });
 
 let promise2 = new Promise((resolve,reject) => {
