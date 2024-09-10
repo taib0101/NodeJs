@@ -52,15 +52,19 @@ setTimeout(() => {
     console.log("Example 01");
     function1()
         .then((function1_value) => {
+        
             console.log(function1_value);
             function2()
                 .then((function2_value) => {
+                
                     console.log(function2_value);
                     function3()
                         .then((function3_value) => {
+                        
                             console.log(function3_value);
                             function4()
                                 .then((function4_value) => {
+                                
                                     console.log(function4_value);
                                 })
                                 
@@ -86,6 +90,7 @@ setTimeout(() => {
 
 // example 2:
 // and also we can call like this
+// and this is easy to use then example 01
 setTimeout(() => {
     console.log("");
     console.log("Example 02");
@@ -95,7 +100,9 @@ setTimeout(() => {
         .then(function4)
         .then((value) => {
             console.log(value);
+            return 2000;
         })
+        .then(result => console.log(result))
         .catch((error) => {
             console.log(error);
         });
