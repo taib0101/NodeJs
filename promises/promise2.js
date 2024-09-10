@@ -102,6 +102,7 @@ setTimeout(() => {
             console.log(value);
             return 2000;
         })
+        .then(value => value)
         .then(result => console.log(result))
         .catch((error) => {
             console.log(error);
