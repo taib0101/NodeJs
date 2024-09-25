@@ -1,0 +1,2 @@
+*Core Module doesn't need to install npm install [package_name]
+*Core Module created buildin NodeJS

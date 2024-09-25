@@ -1,0 +1,3 @@
+#NodeJS package Manager
+* sudo apt install npm
+* npm install (package)

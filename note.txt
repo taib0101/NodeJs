@@ -1,0 +1,8 @@
+*NodeJS is a Runtime Environment powered by chrome v8 engine
+*Bryan Dahl developed it with chrome v8 engine 
+*NodeJS is single threaded language 
+*It is Asynchronous amd Non-blocking I/O system.
+*NodeJS is not better for CPU Intensive task(machine,deep learning,data analysis etc)
+*It is best for I/O Intensive task
+*NodeJS take help of libuv C kernel package for multithread in backend,
+but node work with single thread
