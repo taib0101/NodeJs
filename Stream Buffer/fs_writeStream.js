@@ -7,6 +7,10 @@ let writeFileStream = fs.createWriteStream(`${__dirname}/output.txt`);
 readFileStream.on("data",(chunk) => {
     writeFileStream.write(chunk);
 })
+
+// we can use pipe opposite if this code readFileStream.on("data",(chunk) => {writeFileStream.write(chunk);})
+// readFileStream.pipe(writeFileStream) 
+
 fs.appendFileSync(`${__dirname}/output.txt`,"\n")
 
 let buffer = Buffer.from(fs.readFileSync("output.txt"));

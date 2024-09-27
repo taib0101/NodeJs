@@ -9,7 +9,7 @@ async function main() {
 
         // write
         let writeData = new Uint8Array(Buffer.from("Promise\n"));
-        await fs.writeFile(`${__dirname}/new.txt`, "bor this is taib\n");
+        await fs.writeFile(`${__dirname}/new.txt`, "bro this is taib\n");
         await fs.appendFile(`${__dirname}/new.txt`,writeData);
 
         // read
