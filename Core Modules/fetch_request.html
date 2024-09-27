@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--attribute action redirect the path-->
+    <!-- <form method="post" action="/form"></form> -->
+    <form>
+        <label>First Name</label>
+        <input id="first" type="text">
+
+        <label>Last Name</label>
+        <input id="second" type="text">
+
+        <br>
+        <button id="get">GET</button>
+        <button id="post">POST</button>
+    </form>
+</body>
+<script>
+    const first = document.querySelector("#first").value;
+    const second = document.querySelector("#second").value;
+    document.querySelector("#get").addEventListener("click", (event) => {
+        event.preventDefault();
+        async function main() {
+            let url_path = "/form";
+            let request_object = {
+                method: "GET"
+            };
+            try {
+                await fetch(url_path, request_object);
+                console.log(response);
+            } catch (error) {
+                console.log("error");
+            }
+
+            // redirect the path
+            window.location = "/form";
+        }
+        main();
+    });
+
+    document.querySelector("#post").addEventListener("click", (event) => {
+        event.preventDefault();
+        async function main() {
+            let url_path = "/form";
+            let request_object = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Action": "application/json"
+                },
+                body: JSON.stringify({
+                    first: first,
+                    second: second
+                })
+            };
+            try {
+                await fetch(url_path, request_object);
+                console.log(response);
+            } catch (error) {
+                console.log("error");
+            }
+
+            // redirect the path
+            window.location = "/form";
+        }
+        main();
+    });
+</script>
+
+</html>

@@ -7,11 +7,18 @@ async function main() {
         // let controller = new AbortController().signal;
         // console.log(controller);
 
+        // write
         let writeData = new Uint8Array(Buffer.from("Promise\n"));
-        await fs.writeFile("new.txt", writeData);
-        await fs.appendFile("new.txt",writeData);
-        let readPromise = await fs.readFile("new.txt", { encoding: "utf8" });
+        await fs.writeFile(`${__dirname}/new.txt`, "bor this is taib\n");
+        await fs.appendFile(`${__dirname}/new.txt`,writeData);
+
+        // read
+        // let readPromise = await fs.readFile(`${__dirname}/new.txt`s);
+        let readPromise = await fs.readFile(`${__dirname}/new.txt`, { encoding: "utf8" });
         console.log(readPromise.toString());
+
+        // delete
+        await fs.unlink(`${__dirname}/new.txt`);
     } catch (error) {
         console.log(error.message);
     }

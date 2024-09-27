@@ -1,0 +1,13 @@
+*Stream is bundle of Buffer
+*Buffer is bundle or packet of Binary Data
+
+Stream = Buffer1 + Buffer2 + Buffer3 + ... ... + BufferN;
+Buffer1(Chunk of Data) = Binary1 + Binary2 + Binary3 + ... ... + BinaryN
+Buffer1 = Chunk_of_Data 
+
+                        ------------
+Stream -******------->  |  ****    |  -----> Chunk of Data
+                        ------------
+                           Buffer
+
+Client <---- Data <----- Server(Stream)
