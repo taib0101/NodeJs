@@ -1,5 +1,5 @@
 let EventEmitter = require("events");
-let CustomEvent1 = require("./server1Raise.js");
+let CustomEvent1 = require("./server1Raise");// no need to tell .js , because this nodejs smartness
 
 let server1Raise = new CustomEvent1();
 
