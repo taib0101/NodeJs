@@ -5,6 +5,8 @@ let http = require("http");
 // Event Loop work for giving Intensive task to server, event loop work repeatively
 let server = http.createServer((request,response) => {
     response.write("You can write it multiple times\n");
+    let headersObject = request.headers;
+    console.log("headers :",headersObject);
     if(request.url === "/") {
         response.write("it refer of request url path /")
     } else if(request.url === "/about") {
