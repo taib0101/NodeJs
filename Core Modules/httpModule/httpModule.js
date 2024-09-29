@@ -6,7 +6,9 @@ let http = require("http");
 let server = http.createServer((request,response) => {
     response.write("You can write it multiple times\n");
     let headersObject = request.headers;
+    let method = request.method;
     console.log("headers :",headersObject);
+    console.log("method :",method);
     if(request.url === "/") {
         response.write("it refer of request url path /")
     } else if(request.url === "/about") {
@@ -27,9 +29,11 @@ let server = http.createServer((request,response) => {
 // });
 
 // server listening port number
-server.listen(3000);
+// server.listen(3000);
+server.listen(3000,() => {
+    console.log("Server is Listening on 3000....");
+});
 
-console.log("Server is Listening on 3000....");
 
 // note : if using server.listen(3000) and show error to terminal 
 // use this command on terminal: lsof -i:3000 (list of Open Files)
