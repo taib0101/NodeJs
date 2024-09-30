@@ -4,6 +4,9 @@
 // 3000 is for staging and 5000 is for production
 
 // go to terminal and prompt env1=staging env2=production [node|nodemon] environment_variable.js, and you can give multiple variable from outside
+// you can it by npm 
+// go to package.json , under "dependencies" , write "scripts" : {"start" : "env1=staging nodemon index","env2" : "env2=production nodemon index"}
+// now run this "~/ npm run start" or "~/ npm run env2"
 
 // there have other option to run it 
 
