@@ -13,7 +13,7 @@ async function main() {
         await fs.appendFile(`${__dirname}/new.txt`,writeData);
 
         // read
-        // let readPromise = await fs.readFile(`${__dirname}/new.txt`s);
+        // let readPromise = await fs.readFile(`${__dirname}/new.txt`,"utf8");
         let readPromise = await fs.readFile(`${__dirname}/new.txt`, { encoding: "utf8" });
         console.log(readPromise.toString());
 
