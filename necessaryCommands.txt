@@ -1,0 +1,6 @@
+// to see port is open
+* lsof -i:3000
+// to details of port
+* ps -aux | grep 3000
+// kill the process
+* kill -9 process_id
