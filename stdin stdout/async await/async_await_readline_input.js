@@ -6,6 +6,7 @@ let input = () => {
     const promise = new Promise((resolve,reject) => {
         rl.on("line" , (chunk) => {
             resolve(chunk.toString().trim());
+            // process.exit();
             rl.close();
         });
     });
