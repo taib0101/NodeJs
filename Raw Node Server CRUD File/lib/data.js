@@ -1,3 +1,10 @@
+/*
+    Title : CRUD Files
+    Description : Create, Read, Update, Delete Files
+    Author : Mustain Murtaza Taib
+    Date : 28/09/2024
+*/
+
 // dependencies
 const path = require("path");
 const fs = require("fs");
