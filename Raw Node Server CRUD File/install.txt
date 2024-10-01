@@ -1,0 +1,2 @@
+*sudo npm install -g nodemon (to automatically restart the server)
+* ~/nodemon index.js

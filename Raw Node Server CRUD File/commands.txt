@@ -1,0 +1,6 @@
+* go to unix terminal
+* ~/ npm start
+or
+* ~/ npm run env2
+or
+* env1=staging env2=production nodemon|node index.js (you can give environment variable for  multiple time)
