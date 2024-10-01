@@ -44,7 +44,7 @@ let server = http.createServer((request, response) => {
 
         // listening request event
         request.on("data", (chunk) => {
-            // you can get chunk, when post request is done. not for get request from client side
+            // you can get chunk, when  request is done. it comes chunk by buffer
             // you can get it also by url.parse(request.url).
             console.log("Chunk :", chunk.toString());
         });
@@ -52,6 +52,7 @@ let server = http.createServer((request, response) => {
         request.on("end", () => {
             // Set the response headers to indicate the content type is JSON
             // don't use response.write() when you send response Object
+            // you can set Header by response.setHeader("key","value")
             response.writeHead(200, { "Content-Type": "application/json" });
 
             const responseObject = {
