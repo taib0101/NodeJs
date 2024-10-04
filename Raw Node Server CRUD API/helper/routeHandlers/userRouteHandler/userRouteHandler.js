@@ -42,6 +42,7 @@ const userRouteHandler = async (requestProperties, callback) => {
             requestProperties.queryStringObject.phone.trim().length === 11 ? requestProperties.queryStringObject.phone
             : "";
 
+        const objectKeys = Object.keys(requestProperties.queryStringObject);
 
         const twoZeroZero = () => {
             callback(200, parsedReadFile);
@@ -65,7 +66,7 @@ const userRouteHandler = async (requestProperties, callback) => {
             });
         }
 
-        if(queryPhone !== "phone") fourZeroZero();
+        if (queryPhone !== "phone" && objectKeys.length !== 0) fourZeroZero();
         
         const getQueryFunction = () => {
             for (let i = 0; i < parsedReadFile.data.length; ++i) {
@@ -130,8 +131,6 @@ const userRouteHandler = async (requestProperties, callback) => {
                 queryReadFile: parsedReadFile,
             };
         }
-
-        let objectKeys = Object.keys(requestProperties.queryStringObject);
 
         // need authentication for get
         _user.get = async function () {
