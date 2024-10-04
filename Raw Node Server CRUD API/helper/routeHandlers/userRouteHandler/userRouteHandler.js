@@ -6,6 +6,13 @@ const path = require("path");
 
 const userRouteHandler = async (requestProperties, callback) => {
     const _user = {};
+
+    const fiveZeroZero = () => {
+        callback(500, {
+            "error": "internal server error"
+        });
+    }
+
     try {
         // global variables
         const filePath = path.join(__dirname, "/../../../.data/user/file.json");
@@ -13,25 +20,28 @@ const userRouteHandler = async (requestProperties, callback) => {
         const parsedReadFile = JSON.parse(readFile);
 
         // global request properties
-        let firstName = typeof requestProperties.body.firstName === "string" &&
+        const firstName = typeof requestProperties.body.firstName === "string" &&
             requestProperties.body.firstName.trim().length !== 0 ? requestProperties.body.firstName
             : false;
-        let lastName = typeof requestProperties.body.lastName === "string" &&
+        const lastName = typeof requestProperties.body.lastName === "string" &&
             requestProperties.body.lastName.trim().length !== 0 ? requestProperties.body.lastName
             : false;
-        let phone = typeof requestProperties.body.phone === "string" &&
+        const phone = typeof requestProperties.body.phone === "string" &&
             requestProperties.body.phone.trim().length === 11 ? requestProperties.body.phone
             : false;
-        let password = typeof requestProperties.body.password === "string" &&
+        const password = typeof requestProperties.body.password === "string" &&
             requestProperties.body.password.trim().length !== 0 ? requestProperties.body.password
             : false;
-        let tosAgreement = typeof requestProperties.body.tosAgreement === "boolean" &&
+        const tosAgreement = typeof requestProperties.body.tosAgreement === "boolean" &&
             requestProperties.body.tosAgreement ? requestProperties.body.tosAgreement
             : false;
 
-        let queryPhone = typeof requestProperties.queryStringObject.phone === "string" &&
+        const token = "";
+
+        const queryPhone = typeof requestProperties.queryStringObject.phone === "string" &&
             requestProperties.queryStringObject.phone.trim().length === 11 ? requestProperties.queryStringObject.phone
             : "";
+
 
         const twoZeroZero = () => {
             callback(200, parsedReadFile);
@@ -55,11 +65,6 @@ const userRouteHandler = async (requestProperties, callback) => {
             });
         }
 
-        const fiveZeroZero = () => {
-            callback(500, {
-                "error": "internal server error"
-            });
-        }
 
         const getQueryFunction = () => {
             for (let i = 0; i < parsedReadFile.data.length; ++i) {
@@ -157,17 +162,13 @@ const userRouteHandler = async (requestProperties, callback) => {
                     lastName,
                     phone,
                     password: passwordHash(password), // hash this password for security, use hash by using crypto module
+                    token,
                     tosAgreement
                 }
 
-                if (fs.existsSync(filePath)) {
-                    parsedReadFile.data.push(postObject);
-
-                    await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
-                    twoZeroZero();
-                } else {
-                    throw "error";
-                }
+                parsedReadFile.data.push(postObject);
+                await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
+                twoZeroZero();
             } else {
                 fourZeroZero();
             }
@@ -228,7 +229,8 @@ const userRouteHandler = async (requestProperties, callback) => {
             console.log("method doesn't included yet");
             fourZeroFive();
         }
-    } catch {
+    } catch (error) {
+        console.log(error);
         fiveZeroZero();
     }
 
