@@ -66,8 +66,6 @@ const userRouteHandler = async (requestProperties, callback) => {
             });
         }
 
-        if (queryPhone !== "phone" && objectKeys.length !== 0) fourZeroZero();
-        
         const getQueryFunction = () => {
             for (let i = 0; i < parsedReadFile.data.length; ++i) {
                 if (parsedReadFile.data[i].phone === queryPhone) {
