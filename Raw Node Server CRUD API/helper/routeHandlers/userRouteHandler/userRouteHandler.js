@@ -40,7 +40,7 @@ const userRouteHandler = async (requestProperties, callback) => {
 
         const queryPhone = typeof requestProperties.queryStringObject.phone === "string" &&
             requestProperties.queryStringObject.phone.trim().length === 11 ? requestProperties.queryStringObject.phone
-            : "";
+            : false;
 
         const objectKeys = Object.keys(requestProperties.queryStringObject);
 
@@ -103,10 +103,17 @@ const userRouteHandler = async (requestProperties, callback) => {
                         requestProperties.body.tosAgreement ? requestProperties.body.tosAgreement
                         : false;
 
-                    return {
-                        bool: true,
-                        queryReadFile: parsedReadFile.data[i]
-                    };
+                    if (parsedReadFile.data[i].firstName &&
+                        parsedReadFile.data[i].lastName &&
+                        parsedReadFile.data[i].phone &&
+                        parsedReadFile.data[i].password &&
+                        parsedReadFile.data[i].tosAgreement) {
+                        return {
+                            bool: true,
+                            queryReadFile: parsedReadFile.data[i]
+                        };
+                    }
+                    break;
                 }
             }
             return {
@@ -119,24 +126,18 @@ const userRouteHandler = async (requestProperties, callback) => {
             const returnedQueryObject = getQueryFunction();
             if (returnedQueryObject.bool) {
                 parsedReadFile.data.splice(returnedQueryObject.index, 1);
-                return {
-                    bool: true,
-                    queryReadFile: parsedReadFile.data[returnedQueryObject.index],
-                };
+                return true;
             }
-            return {
-                bool: false,
-                queryReadFile: parsedReadFile,
-            };
+            return false;
         }
 
         // need authentication for get
-        _user.get = async function () {
+        _user.get = async () => {
             console.log("from get request");
             console.log("request Properties :", requestProperties);
 
             if (objectKeys.length !== 0) {
-                if (queryPhone !== "") {
+                if (queryPhone) {
                     const returnedQueryObject = getQueryFunction();
                     if (returnedQueryObject.bool) {
                         callback(200, returnedQueryObject.queryReadFile);
@@ -144,14 +145,14 @@ const userRouteHandler = async (requestProperties, callback) => {
                         fourZeroFour();
                     }
                 } else {
-                    fourZeroFour();
+                    fourZeroZero();
                 }
             } else {
                 twoZeroZero();
             }
         }
 
-        _user.post = async function () {
+        _user.post = async () => {
             console.log("from post request");
 
             if (firstName && lastName && phone && password && tosAgreement) {
@@ -174,12 +175,12 @@ const userRouteHandler = async (requestProperties, callback) => {
         };
 
         // need authentication for put
-        _user.put = async function () {
+        _user.put = async () => {
             console.log("from put request");
 
             if (objectKeys.length !== 0) {
 
-                if (queryPhone !== "") {
+                if (queryPhone) {
                     const returnedQueryObject = putQueryFunction();
                     if (returnedQueryObject.bool) {
                         await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
@@ -189,7 +190,7 @@ const userRouteHandler = async (requestProperties, callback) => {
                     }
 
                 } else {
-                    fourZeroFour();
+                    fourZeroZero();
                 }
             } else {
                 fourZeroFour();
@@ -197,21 +198,19 @@ const userRouteHandler = async (requestProperties, callback) => {
         };
 
         // need authentication for delete
-        _user.delete = async function () {
+        _user.delete = async () => {
             console.log("from delete request");
 
             if (objectKeys.length !== 0) {
-
-                if (queryPhone !== "") {
-                    const returnedQueryObject = deleteQueryFunction();
-                    if (returnedQueryObject.bool) {
+                if (queryPhone) {
+                    if (deleteQueryFunction()) {
                         await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
                         twoZeroZero();
                     } else {
                         fourZeroFour()
                     }
-                } else if (queryPhone === "") {
-                    fourZeroFour();
+                } else {
+                    fourZeroZero();
                 }
             } else {
                 fourZeroFour()
