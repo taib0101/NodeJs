@@ -36,13 +36,12 @@ const userRouteHandler = async (requestProperties, callback) => {
             requestProperties.body.tosAgreement ? requestProperties.body.tosAgreement
             : false;
 
-        const token = "";
+        // const token = "";
 
         const queryPhone = typeof requestProperties.queryStringObject.phone === "string" &&
             requestProperties.queryStringObject.phone.trim().length === 11 ? requestProperties.queryStringObject.phone
             : false;
 
-        const objectKeys = Object.keys(requestProperties.queryStringObject);
 
         const twoZeroZero = () => {
             callback(200, parsedReadFile);
@@ -66,86 +65,35 @@ const userRouteHandler = async (requestProperties, callback) => {
             });
         }
 
-        const getQueryFunction = () => {
+        const objectKeys = Object.keys(requestProperties.queryStringObject);
+
+        const findQuery = () => {
             for (let i = 0; i < parsedReadFile.data.length; ++i) {
                 if (parsedReadFile.data[i].phone === queryPhone) {
-                    // callback(200, readFile.data[i]);
                     return {
                         bool: true,
-                        queryReadFile: parsedReadFile.data[i],
                         index: parseInt(i)
                     };
                 }
             }
             return {
-                bool: false,
-                queryReadFile: parsedReadFile,
-                index: null
+                bool: false
             };
         }
 
-        const putQueryFunction = () => {
-            for (let i = 0; i < parsedReadFile.data.length; ++i) {
-                if (parsedReadFile.data[i].phone === queryPhone) {
-                    parsedReadFile.data[i].firstName = typeof requestProperties.body.firstName === "string" &&
-                        requestProperties.body.firstName.trim().length !== 0 ? requestProperties.body.firstName
-                        : false;
-                    parsedReadFile.data[i].lastName = typeof requestProperties.body.lastName === "string" &&
-                        requestProperties.body.lastName.trim().length !== 0 ? requestProperties.body.lastName
-                        : false;
-                    parsedReadFile.data[i].phone = typeof requestProperties.body.phone === "string" &&
-                        requestProperties.body.phone.trim().length === 11 ? requestProperties.body.phone
-                        : false;
-                    parsedReadFile.data[i].password = typeof requestProperties.body.password === "string" &&
-                        requestProperties.body.password.trim().length !== 0 ? passwordHash(requestProperties.body.password)
-                        : false;
-                    parsedReadFile.data[i].tosAgreement = typeof requestProperties.body.tosAgreement === "boolean" &&
-                        requestProperties.body.tosAgreement ? requestProperties.body.tosAgreement
-                        : false;
-
-                    if (parsedReadFile.data[i].firstName &&
-                        parsedReadFile.data[i].lastName &&
-                        parsedReadFile.data[i].phone &&
-                        parsedReadFile.data[i].password &&
-                        parsedReadFile.data[i].tosAgreement) {
-                        return {
-                            bool: true,
-                            queryReadFile: parsedReadFile.data[i]
-                        };
-                    }
-                    break;
-                }
-            }
-            return {
-                bool: false,
-                queryReadFile: parsedReadFile
-            };
-        }
-
-        const deleteQueryFunction = () => {
-            const returnedQueryObject = getQueryFunction();
-            if (returnedQueryObject.bool) {
-                parsedReadFile.data.splice(returnedQueryObject.index, 1);
-                return true;
-            }
-            return false;
-        }
+        let returnedObject;
+        if (queryPhone) returnedObject = findQuery();
 
         // need authentication for get
         _user.get = async () => {
             console.log("from get request");
-            console.log("request Properties :", requestProperties);
+            // console.log("request Properties :", requestProperties);
 
             if (objectKeys.length !== 0) {
-                if (queryPhone) {
-                    const returnedQueryObject = getQueryFunction();
-                    if (returnedQueryObject.bool) {
-                        callback(200, returnedQueryObject.queryReadFile);
-                    } else {
-                        fourZeroFour();
-                    }
+                if (queryPhone && returnedObject.bool) {
+                    callback(200, parsedReadFile.data[returnedObject.index]);
                 } else {
-                    fourZeroZero();
+                    fourZeroFour();
                 }
             } else {
                 twoZeroZero();
@@ -178,40 +126,35 @@ const userRouteHandler = async (requestProperties, callback) => {
         _user.put = async () => {
             console.log("from put request");
 
-            if (objectKeys.length !== 0) {
+            if (objectKeys.length !== 0 && queryPhone
+                && returnedObject.bool) {
+                if (firstName && lastName && phone && password && tosAgreement) {
+                    parsedReadFile.data[returnedObject.index].firstName = firstName;
+                    parsedReadFile.data[returnedObject.index].lastName = lastName;
+                    parsedReadFile.data[returnedObject.index].phone = phone;
+                    parsedReadFile.data[returnedObject.index].password = passwordHash(password);
+                    parsedReadFile.data[returnedObject.index].tosAgreement = tosAgreement;
 
-                if (queryPhone) {
-                    const returnedQueryObject = putQueryFunction();
-                    if (returnedQueryObject.bool) {
-                        await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
-                        callback(200, returnedQueryObject.queryReadFile);
-                    } else {
-                        fourZeroFour();
-                    }
-
+                    await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
+                    callback(200, parsedReadFile.data[returnedObject.index]);
                 } else {
                     fourZeroZero();
                 }
             } else {
                 fourZeroFour();
             }
+
         };
 
         // need authentication for delete
         _user.delete = async () => {
             console.log("from delete request");
 
-            if (objectKeys.length !== 0) {
-                if (queryPhone) {
-                    if (deleteQueryFunction()) {
-                        await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
-                        twoZeroZero();
-                    } else {
-                        fourZeroFour()
-                    }
-                } else {
-                    fourZeroZero();
-                }
+            if (objectKeys.length !== 0 && queryPhone
+                && returnedObject.bool) {
+                parsedReadFile.data.splice(returnedObject.index, 1);
+                await fsp.writeFile(filePath, JSON.stringify(parsedReadFile));
+                twoZeroZero();
             } else {
                 fourZeroFour()
             }
