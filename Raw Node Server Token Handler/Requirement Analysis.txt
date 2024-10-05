@@ -1,0 +1,14 @@
+*Uptime Monitoring API
+1. Start the API Server
+2. Create, Read, Update, Delete
+3. Get, Post, Put, Delete
+4. Token Handler with Get, Post, Put, Delete
+
+*Key Responsibility
+1. Restful API
+2. Request Response Handler
+3. Environment Handler
+4. Route CHecking and Handling
+5. CRUD Operations
+6. User Route Handling
+7. CRUD Operation API at postman
