@@ -195,10 +195,9 @@ const tokenHandler = async (requestProperties, callback) => {
         } else {
             fourZeroFive();
         }
-
     } catch (error) {
         console.log(error);
-        // fiveZeroZero();
+        fiveZeroZero();
     }
     // console.log(requestProperties, "\n request properties received in tokenHandler");
 }
