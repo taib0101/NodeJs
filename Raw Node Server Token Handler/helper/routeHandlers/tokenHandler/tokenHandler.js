@@ -51,6 +51,12 @@ const tokenHandler = async (requestProperties, callback) => {
             });
         }
 
+        const fourZeroThree = () => {
+            callback(403, {
+                "message": "Authentication Error"
+            });
+        }
+
         const fourZeroFour = () => {
             callback(404, {
                 "message": "Not Found"
@@ -63,6 +69,7 @@ const tokenHandler = async (requestProperties, callback) => {
             });
         }
 
+        // give query phone and password
         const findQuery = () => {
             for (let i = 0; i < parsedReadFile.data.length; ++i) {
                 if (parsedReadFile.data[i].phone === queryPhone
@@ -118,6 +125,7 @@ const tokenHandler = async (requestProperties, callback) => {
                 await fsp.writeFile(readFilePath, JSON.stringify(parsedReadFile));
                 callback(200, objectForTokenJSONFile);
             } else {
+                console.log("bara");
                 fourZeroFour();
             }
         }
@@ -167,22 +175,23 @@ const tokenHandler = async (requestProperties, callback) => {
         }
 
 
-        const verify = async (id) => {
-            const readTokenFile = await fsp.readFile(`${readFilePathToken}/${id}.json`,"utf8");
-            const parsedReadTokenFile = JSON.parse(readTokenFile);
-            if(parsedReadTokenFile.phone === parsedReadFile.data[returnedObject.index].phone)
+        const verify = (id) => {
+            if (fs.existsSync(`${readFilePathToken}/${id}.json`)) {
                 console.log("This is Authenticate");
-            else
-                console.log("403 , This is not authenticate");
+                return true;
+            }
+            return false;
         }
 
         const checkingMethods = ["get", "post", "put", "delete"];
         if (checkingMethods.includes(requestProperties.method)) {
-            _userToken[requestProperties.method]();
-            if (returnedObject.bool)
-                verify(parsedReadFile.data[returnedObject.index].token);
-            else
-                console.log("404, not found");
+            if (verify(requestProperties.headerObject.id)) {
+                _userToken[requestProperties.method]();
+            } else if (requestProperties.method === "post") {
+                _userToken[requestProperties.method]();
+            } else {
+                fourZeroThree();
+            }
         } else {
             fourZeroFive();
         }
