@@ -128,7 +128,7 @@ const userRouteHandler = async (requestProperties, callback) => {
 
             if (objectKeys.length !== 0 && queryPhone
                 && returnedObject.bool) {
-                if (firstName && lastName && phone && password && tosAgreement) {
+                if (firstName || lastName || phone || password || tosAgreement) {
                     parsedReadFile.data[returnedObject.index].firstName = firstName;
                     parsedReadFile.data[returnedObject.index].lastName = lastName;
                     parsedReadFile.data[returnedObject.index].phone = phone;
