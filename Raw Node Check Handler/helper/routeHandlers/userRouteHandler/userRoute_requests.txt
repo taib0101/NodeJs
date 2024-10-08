@@ -1,0 +1,8 @@
+{
+    "firstName": "Murtaza",
+    "lastName": "Taib",
+    "phone": "01969330823",
+    "password": "1234",
+    "token": "",
+    "tosAgreement": true
+}
