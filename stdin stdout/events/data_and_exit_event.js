@@ -1,9 +1,5 @@
 // this is asynchronous ,it Works at a lower level, directly with the stdin stream.
 // this method is done for single input for each testcase
-// you can't watch output line by line for each testcase
-// you can call process.stdin.on for once for better practice
-// you can call process.stdin.on for once for better practice, first one stdin.on will work
-// second one will not work
 
 
 // it use when directly works stdin stream
