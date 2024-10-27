@@ -1,0 +1,38 @@
+{
+  "name": "vogi-chogi",                        // The project name (should be lowercase and no spaces)
+  "version": "1.0.0",                          // The version of your project, follows semantic versioning
+  "description": "A brief description of vogi-chogi.", // Short summary of your project
+  "type": "module",                            // Allows usage of ES modules (import/export syntax)
+  "main": "app.js",                            // Entry point of the application
+  "scripts": {                                 // Custom scripts for running common tasks
+    "start": "node app.js",                    // Starts the application
+    "dev": "env1=staging nodemon index",       // Starts the app with Nodemon for auto-restarting with development area, $ npm start
+    "prod": "env2=production nodemon index"    // starts the app with production, $ npm run prod
+  },
+  "dependencies": {                            // Libraries your app depends on
+    "express": "^4.17.1"                       // Express for building server-side applications
+  },
+  "devDependencies": {                         // Libraries used for development only
+    "nodemon": "^2.0.7",                       // Nodemon for auto-restarting the server during development
+  },
+  "keywords": [                                // Keywords related to your project for searchability
+    "project", "example", "node", "express"
+  ],
+  "author": "Anonymous",                       // Author of the project
+  "license": "MIT",                            // License type
+  "engines": {                                 // Specifies Node.js version compatibility
+    "node": ">=14.0.0"
+  },
+  "repository": {                              // Repository information (optional)
+    "type": "git",
+    "url": "https://github.com/yourusername/my-project.git"
+  },
+  "bugs": {                                    // Bug tracking URL (optional)
+    "url": "https://github.com/yourusername/my-project/issues"
+  },
+  "homepage": "https://github.com/yourusername/my-project#readme", // Home page URL (optional)
+  "config": {                                  // Custom config settings for your app (optional)
+    "port": 3000                               // Example: setting a port variable
+  },
+  "private": true                              // If set to true, prevents accidental publishing to npm
+}
