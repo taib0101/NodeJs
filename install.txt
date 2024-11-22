@@ -1,2 +1,17 @@
-*sudo npm install -g nodemon (to automatically restart the server)
-* ~/nodemon index.js
+step 01:
+# installs nvm (Node Version Manager)
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+
+step 02:
+# download and install Node.js (you may need to restart the terminal)
+$ nvm install 23
+
+step 03:
+# verifies the right Node.js version is in the environment
+node --version # should print `v23.3.0`
+# verifies the right npm version is in the environment
+npm --version # should print `10.9.0`
+
+step 04:
+$ sudo npm install -g nodemon # (to automatically restart the server)
+$ nodemon index.js
