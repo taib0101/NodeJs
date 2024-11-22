@@ -1,4 +1,0 @@
-#NodeJS package Manager
-* sudo apt install npm
-* npm install (package)
-* sudo npm install -g nodemon // for installing nodemon globally 
