@@ -1,3 +1,4 @@
+// link : https://nodejs.org/docs/latest/api/crypto.html
 let crypto = require("crypto");
 
 // SHA-256
